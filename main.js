@@ -131,7 +131,7 @@ function timesUp() {
 }
 function questionPage() {
     userAnswer = ""
-    setTimeout(timesUp, 5000)
+    setTimeout(timesUp, 30000)
     if (percentages[stage] != 1){
         if (percentages[stage] <= 50 && passUsed == false){
             hasPass = true

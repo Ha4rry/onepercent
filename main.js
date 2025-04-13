@@ -104,10 +104,15 @@ function timesUp() {
         timeStartsNowButtonPage()
         
     }
-    else if (userAnswer == "") {
-        out()
-    }
     else {
+        if (userAnswer == "") {
+            ans = document.querySelector("#answerField").value
+            if (ans != ""){
+                userAnswer = ans
+            } else {
+                userAnswer = "‎ ‎ ‎ ‎ ‎ "
+            }
+        }
         body.innerHTML = `
         <h1>You put:</h2>
         <div id="answerTextDiv" class="medium">${userAnswer}</div>
@@ -126,7 +131,7 @@ function timesUp() {
 }
 function questionPage() {
     userAnswer = ""
-    setTimeout(timesUp, 30000)
+    setTimeout(timesUp, 5000)
     if (percentages[stage] != 1){
         if (percentages[stage] <= 50 && passUsed == false){
             hasPass = true
@@ -138,7 +143,7 @@ function questionPage() {
         else {
             // passHTML = `<div id="passDiv">No pass available.</div>`
             if (passUsed == true) {
-                passHTML = `<div id="passDiv">Pass used</div>`
+                passHTML = `<div id="passDiv">Pass used.</div>`
             }
         }
     } else {
@@ -147,22 +152,21 @@ function questionPage() {
     
     body.innerHTML= 
     `<span><h1 id="percentageTitleText">${percentages[stage]}%</h1>${passHTML}</span>
-    <textarea id="answerField" placeholder="Type answer here..."></textarea>
-    <h1>Press Enter on the keyboard when typing to submit.</h1>
+    <textarea id="answerField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type answer here..."></textarea>
     `
     if (percentages[stage] == 1) {
         document.querySelector("#answerField").style.borderColor = "gold"
     }
 
     answerField = document.querySelector("#answerField");
-    answerField.focus()
+    // answerField.focus()
 
     answerField.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
           event.preventDefault();
           userAnswer = answerField.value
           if (userAnswer != "") {
-              body.innerHTML = `<h1 class="big">Waiting...</h1>`
+              body.innerHTML = `<h1 class="big">Answer submitted</h1>`
           }
         }
       }); 

@@ -1,0 +1,141 @@
+body {
+    background-color: blue;
+    font-family: "Special Gothic Condensed One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    text-align: center;
+}
+  
+.smaller {
+    font-size: 1.5rem;
+}
+
+.medium {
+    font-size: 2.5rem;
+}
+
+.big {
+    font-size: 5rem;
+}
+
+button {
+    border: none;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: rgb(0, 0, 0); 
+    color: gold; 
+    border: 2px solid gold;
+    font-family: "Special Gothic Condensed One", sans-serif;
+    font-weight: 400;
+    font-style: normal
+}
+
+#answerField {
+    width: 96%;
+    height: 25rem;
+    border: 0.1em solid black;
+    font-family: "Special Gothic Condensed One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3rem;
+    resize: none
+}
+
+#correctButton {
+    background-color: green;
+    color: white;
+    width: 20rem;
+    height: 10rem;
+    font-size: 3rem;
+
+}
+
+#incorrectButton{
+    background-color: red;
+    color: white;
+    width: 20rem;
+    height: 10rem;
+    font-size: 3rem;
+}
+
+#answerTextDiv {
+    border: 1.5rem dotted gold;
+    color: white;
+    text-align: center;
+    word-wrap: break-word
+}
+
+#percentageTitleText {
+    color: gold;
+    display: inline-block
+    
+}
+
+#passDiv {
+    padding-left: 1rem;
+    display: inline-block
+}
+
+#passButton {
+    
+    color: white;
+    border: 2px solid white;
+    font-size:1.5rem;
+}
+
+.rainbow{
+    animation: rainbow 2.5s linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rainbow{
+    100%,0%{
+        color: rgb(255,0,0);
+    }
+    8%{
+        color: rgb(255,127,0);
+    }
+    16%{
+        color: rgb(255,255,0);
+    }
+    25%{
+        color: rgb(127,255,0);
+    }
+    33%{
+        color: rgb(0,255,0);
+    }
+    41%{
+        color: rgb(0,255,127);
+    }
+    50%{
+        color: rgb(0,255,255);
+    }
+    58%{
+        color: rgb(0,127,255);
+    }
+    66%{
+        color: rgb(0,0,255);
+    }
+    75%{
+        color: rgb(127,0,255);
+    }
+    83%{
+        color: rgb(255,0,255);
+    }
+    91%{
+        color: rgb(255,0,127);
+    }
+}
+
+#skipToOnePercentButton {
+    border: 2px solid black;
+    color: purple; 
+    background-color: gray;
+    font-size: 1.5rem;
+}

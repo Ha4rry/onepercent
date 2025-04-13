@@ -25,6 +25,7 @@ let passInUse = false
 let passGiven = false
 let passHTML = ""
 let passUsedHTML = ""
+let skipHTML = `<div><button id="skipToOnePercentButton">Skip to 1% question</button></div>`
 
 function winPage(){
     if (passUsed == true) {
@@ -46,6 +47,9 @@ function nextQuestion(){
     questionPage()
 }
 function timeStartsNowButtonPage() {
+    if (stage == 13) {
+        skipHTML=``
+    }
     body.innerHTML = `
     <h1 class="medium">Next Question: ${percentages[stage+1]}%</h1>
     <div><button id="nextButton" class="big">'Your time starts... NOW'</button></div>
@@ -53,7 +57,7 @@ function timeStartsNowButtonPage() {
     <br>
     <br>
     <br>
-    <div><button id="skipToOnePercentButton">Skip to 1% question</button></div>
+    ${skipHTML}
     `
     nextButton = document.querySelector("#nextButton");
     skipToOnePercentButton = document.querySelector("#skipToOnePercentButton");
@@ -61,8 +65,8 @@ function timeStartsNowButtonPage() {
     nextButton.addEventListener('click', nextQuestion);
     skipToOnePercentButton.addEventListener('click', () => {
         if (confirm("Are you sure you want to skip to the 1% question?") == true){
-            stage = 14
-            questionPage()
+            stage = 13
+            timeStartsNowButtonPage()
         }
     })
 }

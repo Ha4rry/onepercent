@@ -46,6 +46,18 @@ function nextQuestion(){
     stage = stage + 1
     questionPage()
 }
+
+function skipToPercentage() {
+    percentageToSkipTo = Number(prompt("What is the percentage of the next question?"))
+    if (percentages.includes(percentageToSkipTo)){
+        stage = percentages.indexOf((percentageToSkipTo)) - 1
+        timeStartsNowButtonPage()
+
+    } else{
+        alert("FAILED, INVALID PERCENTAGE.")
+    }
+}
+
 function timeStartsNowButtonPage() {
     
     if (stage == 13) {
@@ -64,19 +76,7 @@ function timeStartsNowButtonPage() {
     skipToAPercentButton = document.querySelector("#skipToAPercentButton");
 
     nextButton.addEventListener('click', nextQuestion);
-    skipToAPercentButton.addEventListener('click', () => {
-        percentageToSkipTo = Number(prompt("my name is jeff"))
-        console.log(percentageToSkipTo)
-        if (percentages.includes(percentageToSkipTo)){
-            if (confirm(`Are you sure you want to skip to the ${percentageToSkipTo}% question?`) == true){
-                stage = percentages.indexOf((percentageToSkipTo)) - 1
-                timeStartsNowButtonPage()
-            }
-        } else{
-            alert("FAILED, INVALID PERCENTAGE.")
-        }
-        
-    })
+    skipToAPercentButton.addEventListener('click', skipToPercentage)
 }
 function correctPage() {
     if (percentages[stage] != 1) {
@@ -187,14 +187,4 @@ function questionPage() {
 }
 
 nextButton.addEventListener('click', questionPage)
-skipToAPercentButton.addEventListener('click', () => {
-    percentageToSkipTo = Number(prompt("What is the percentage of the next question?"))
-    if (percentages.includes(percentageToSkipTo)){
-        stage = percentages.indexOf((percentageToSkipTo)) - 1
-        timeStartsNowButtonPage()
-
-    } else{
-        alert("FAILED, INVALID PERCENTAGE.")
-    }
-    
-})
+skipToAPercentButton.addEventListener('click', skipToPercentage)

@@ -25,7 +25,7 @@ let passInUse = false
 let passGiven = false
 let passHTML = ""
 let passUsedHTML = ""
-let skipHTML = `<div><button id="skipToOnePercentButton">Skip to 1% question</button></div>`
+let skipHTML = `<div><button id="skipToAPercentButton">Change next question percentage</button></div>`
 
 function winPage(){
     if (passUsed == true) {
@@ -47,6 +47,7 @@ function nextQuestion(){
     questionPage()
 }
 function timeStartsNowButtonPage() {
+    
     if (stage == 13) {
         skipHTML=``
     }
@@ -60,14 +61,21 @@ function timeStartsNowButtonPage() {
     ${skipHTML}
     `
     nextButton = document.querySelector("#nextButton");
-    skipToOnePercentButton = document.querySelector("#skipToOnePercentButton");
+    skipToAPercentButton = document.querySelector("#skipToAPercentButton");
 
     nextButton.addEventListener('click', nextQuestion);
-    skipToOnePercentButton.addEventListener('click', () => {
-        if (confirm("Are you sure you want to skip to the 1% question?") == true){
-            stage = 13
-            timeStartsNowButtonPage()
+    skipToAPercentButton.addEventListener('click', () => {
+        percentageToSkipTo = Number(prompt("my name is jeff"))
+        console.log(percentageToSkipTo)
+        if (percentages.includes(percentageToSkipTo)){
+            if (confirm(`Are you sure you want to skip to the ${percentageToSkipTo}% question?`) == true){
+                stage = percentages.indexOf((percentageToSkipTo)) - 1
+                timeStartsNowButtonPage()
+            }
+        } else{
+            alert("FAILED, INVALID PERCENTAGE.")
         }
+        
     })
 }
 function correctPage() {
@@ -179,3 +187,15 @@ function questionPage() {
 }
 
 nextButton.addEventListener('click', questionPage)
+skipToAPercentButton.addEventListener('click', () => {
+    percentageToSkipTo = Number(prompt("What is the percentage of the next question?"))
+    if (percentages.includes(percentageToSkipTo)){
+        if (confirm(`Are you sure the next question is the ${percentageToSkipTo}% question?`) == true){
+            stage = percentages.indexOf((percentageToSkipTo)) - 1
+            timeStartsNowButtonPage()
+        }
+    } else{
+        alert("FAILED, INVALID PERCENTAGE.")
+    }
+    
+})

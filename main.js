@@ -190,10 +190,9 @@ nextButton.addEventListener('click', questionPage)
 skipToAPercentButton.addEventListener('click', () => {
     percentageToSkipTo = Number(prompt("What is the percentage of the next question?"))
     if (percentages.includes(percentageToSkipTo)){
-        if (confirm(`Are you sure the next question is the ${percentageToSkipTo}% question?`) == true){
-            stage = percentages.indexOf((percentageToSkipTo)) - 1
-            timeStartsNowButtonPage()
-        }
+        stage = percentages.indexOf((percentageToSkipTo)) - 1
+        timeStartsNowButtonPage()
+
     } else{
         alert("FAILED, INVALID PERCENTAGE.")
     }

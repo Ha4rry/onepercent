@@ -65,7 +65,7 @@ button {
 }
 
 #answerTextDiv {
-    border: 1.5rem dotted gold;
+    border: 1.5rem dotted rgb(255, 215, 0);
     color: white;
     text-align: center;
     word-wrap: break-word
@@ -138,4 +138,18 @@ button {
     color: purple; 
     background-color: gray;
     font-size: 1.5rem;
+}
+.goldglow {
+  color: #fff;
+  animation: goldglow 1s ease-in-out infinite alternate;
+}
+
+@keyframes goldglow {
+  from {
+    text-shadow: 0 0 10px #fff4b4, 0 0 20px #fff4b4, 0 0 30px gold, 0 0 40px gold, 0 0 50px gold, 0 0 60px gold, 0 0 70px gold;
+  }
+  
+  to {
+    text-shadow: 0 0 20px #fff4b4, 0 0 30px gold, 0 0 40px gold, 0 0 50px gold, 0 0 60px gold, 0 0 70px gold, 0 0 80px gold;
+  }
 }

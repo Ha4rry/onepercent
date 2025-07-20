@@ -164,6 +164,7 @@ function questionPage() {
     `
     if (percentages[stage] == 1) {
         document.querySelector("#answerField").style.borderColor = "gold"
+        document.querySelector("#percentageTitleText").style.color = "gold"
     }
 
     answerField = document.querySelector("#answerField");

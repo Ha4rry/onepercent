@@ -47,7 +47,7 @@ function nextQuestion(){
 }
 
 function skipToPercentage() {
-    percentageToSkipTo = Number(prompt("What is the percentage of the next question?"))
+    percentageToSkipTo = Number(prompt("What is the percentage of the next question?").replace("%", ""))
     if (percentages.includes(percentageToSkipTo)){
         stage = percentages.indexOf((percentageToSkipTo)) - 1
         timeStartsNowButtonPage()

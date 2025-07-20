@@ -25,7 +25,6 @@ let passInUse = false
 let passGiven = false
 let passHTML = ""
 let passUsedHTML = ""
-let skipHTML = `<div><button id="skipToAPercentButton">Change next question percentage</button></div>`
 
 function winPage(){
     if (passUsed == true) {
@@ -60,18 +59,18 @@ function skipToPercentage() {
 
 function timeStartsNowButtonPage() {
     
-    if (stage == 13) {
-        skipHTML=``
-    }
     body.innerHTML = `
-    <h1 class="medium">Next Question: ${percentages[stage+1]}%</h1>
+    <h1 class="medium" id="nextQuestionText">Next Question: ${percentages[stage+1]}%</h1>
     <div><button id="nextButton" class="big">'Your time starts... NOW'</button></div>
     <br>
     <br>
     <br>
     <br>
-    ${skipHTML}
+    <div><button id="skipToAPercentButton">Change next question percentage</button></div>
     `
+    if (percentages[stage+1] === 1) {
+        document.querySelector("#nextQuestionText").style.color = "gold"
+    }
     nextButton = document.querySelector("#nextButton");
     skipToAPercentButton = document.querySelector("#skipToAPercentButton");
 
@@ -162,7 +161,7 @@ function questionPage() {
     `<span><h1 id="percentageTitleText">${percentages[stage]}%</h1>${passHTML}</span>
     <textarea id="answerField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type answer here..."></textarea>
     `
-    if (percentages[stage] == 1) {
+    if (percentages[stage] === 1) {
         document.querySelector("#answerField").style.borderColor = "gold"
         document.querySelector("#percentageTitleText").style.color = "gold"
     }

@@ -69,7 +69,8 @@ function timeStartsNowButtonPage() {
     <div><button id="skipToAPercentButton">Change next question percentage</button></div>
     `
     if (percentages[stage+1] === 1) {
-        document.querySelector("#nextQuestionText").style.color = "gold"
+        document.querySelector("#nextQuestionText").style.color = "black"
+        document.querySelector("#nextQuestionText").classList.add('goldglow');
     }
     nextButton = document.querySelector("#nextButton");
     skipToAPercentButton = document.querySelector("#skipToAPercentButton");

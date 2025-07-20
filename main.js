@@ -64,8 +64,6 @@ function timeStartsNowButtonPage() {
     <div><button id="nextButton" class="big">'Your time starts... NOW'</button></div>
     <br>
     <br>
-    <br>
-    <br>
     <div><button id="skipToAPercentButton">Change next question percentage</button></div>
     `
     if (percentages[stage+1] === 1) {

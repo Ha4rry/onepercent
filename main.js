@@ -65,7 +65,7 @@ function changeGameStatePage() {
     }
     body.innerHTML = 
     `
-    <h2 class="smaller">Upcoming question percentage:</h2>
+    <h2 class="smaller">Next question percentage:</h2>
     ${skipPercentagesHTML}
     <h2 class="smaller">Have you used a pass?</h2>
     <button id="unused" class="smallest darkGreen">Not yet! 😎</button>
@@ -131,7 +131,7 @@ function nextQuestionWaitingPage() {
 function timeStartsNowButtonPage() {
     
     body.innerHTML = `
-    <h1 class="medium" id="nextQuestionText">Upcoming Question: ${percentages[stage]}%</h1>
+    <h1 class="medium" id="nextQuestionText">Next Question: ${percentages[stage]}%</h1>
     <div><button id="nextButton" class="big">'Your time starts... NOW'</button></div>
     <br>
     <div><button id="changeGameStateButton">Change game state</button></div>
@@ -197,7 +197,8 @@ function timesUp() {
             }
         }
         body.innerHTML = `
-        <h1>You put:</h1><div id="time">30s</div>
+        <h1 style="display: inline-block;">You put:</h1><span id="time">30s</span>
+        <br>
         <div id="answerTextDiv" class="medium">${userAnswer}</div>
         <br>
         <button id="correctButton">Correct</button>
@@ -213,8 +214,6 @@ function timesUp() {
     }
     
 }
-
-
 
 function questionPage() {
     userAnswer = ""

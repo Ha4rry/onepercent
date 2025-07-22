@@ -78,8 +78,7 @@ button {
 
 #percentageTitleText {
     color: white;
-    display: inline-block
-    
+    display: inline-block; 
 }
 
 #passDiv {
@@ -179,12 +178,10 @@ button {
 
 #time {
     color:gold;
-    font-size: 1.75rem; /* wink wink ;) */
+    font-size: 1.75rem;
     width:2.5rem;
     max-width:2.5rem;
     display: inline-block;
-    position:fixed; 
-    right:3.5rem; 
-    top:2rem;
+    padding-left:1rem;
     text-align: right;
 }

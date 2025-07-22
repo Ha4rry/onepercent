@@ -133,7 +133,7 @@ function timeStartsNowButtonPage() {
     <div><button id="nextButton" class="big">'Your time starts... NOW'</button></div>
     <br>
     <br>
-    <div><button id="changeGameStateButton">Change game state (Upcoming Question, Pass)</button></div>
+    <div><button id="changeGameStateButton">Change game state</button></div>
     `
     
     if (percentages[stage] === 1) {

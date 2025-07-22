@@ -39,7 +39,19 @@ let usedButton;
 let timerInterval;
 let timeValue;
 let timerText;
+let wakeLock;
 
+// create an async function to request a wake lock
+async function requestWakeLock(){
+    // THIS PROBABLY ONLY WORKS ON HTTPS
+    try {
+    wakeLock = await navigator.wakeLock.request("screen");
+    alert("wake lock active")
+    } catch (err) {
+    // The Wake Lock request has failed - usually system related, such as battery.
+    alert("wake lock failed")
+    }
+}
 
 function winPage(){
     if (passUsed == true) {

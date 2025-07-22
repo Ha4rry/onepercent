@@ -8,6 +8,9 @@ body {
 }
   
 
+.smallest {
+    font-size: 1.25rem;
+}
 .smaller {
     font-size: 1.5rem;
 }
@@ -23,17 +26,16 @@ body {
 }
 
 button {
-    border: none;
-    padding: 16px 32px;
+    padding: 1rem 2rem;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    margin: 4px 2px;
+    margin: 0.25rem 0.125rem;
     /* transition-duration: 0.4s; */
     cursor: pointer;
     background-color: rgb(0, 0, 0); 
     color: gold; 
-    border: 2px solid gold;
+    border: 0.125rem solid gold;
     font-family: "Special Gothic Condensed One", sans-serif;
     font-weight: 400;
     font-style: normal
@@ -41,8 +43,8 @@ button {
 
 #answerField {
     width: 96%;
-    height: 25rem;
-    border: 0.1em solid black;
+    height: 30rem;
+    border: 0.25rem solid black;
     font-family: "Special Gothic Condensed One", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -88,7 +90,7 @@ button {
 #passButton {
     
     color: white;
-    border: 2px solid white;
+    border: 0.125rem solid white;
     font-size:1.5rem;
 }
 
@@ -137,12 +139,15 @@ button {
 }
 
 #changeGameStateButton {
-    border: 2px solid black;
+    border: 0.125rem solid black;
     color: purple; 
     background-color: grey;
     font-size: 1.5rem;
 }
 
+.trim {
+    padding: 0.5rem 1rem;
+}
 .green {
     color:white;
     background-color: green;

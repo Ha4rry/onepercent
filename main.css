@@ -176,3 +176,15 @@ button {
 .goldglow {
   text-shadow: 0 0 20px gold, 0 0 30px gold, 0 0 40px gold, 0 0 50px gold;
 }
+
+#time {
+    color:gold;
+    font-size: 1.75rem; /* wink wink ;) */
+    width:2.5rem;
+    max-width:2.5rem;
+    display: inline-block;
+    position:fixed; 
+    right:3.5rem; 
+    top:2rem;
+    text-align: right;
+}

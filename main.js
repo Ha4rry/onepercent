@@ -48,11 +48,11 @@ const requestWakeLock = async () => {
   try {
     wakeLock = await navigator.wakeLock.request();
     wakeLock.addEventListener('release', () => {
-      console.log('Screen Wake Lock released:', wakeLock.released);
+        document.body.innerHTML += `Screen Wake Lock released: ${wakeLock.released}<br>`;
     });
-    console.log('Screen Wake Lock released:', wakeLock.released);
+    document.body.innerHTML += `Screen Wake Lock released: ${wakeLock.released}<br>`;
   } catch (err) {
-    console.error(`${err.name}, ${err.message}`);
+    document.body.innerHTML += `${err.name}, ${err.message}<br>`;
   }
 };
 
@@ -65,6 +65,7 @@ const handleVisibilityChange = async () => {
   }
 };
 document.addEventListener('visibilitychange', handleVisibilityChange);
+
 
 function winPage(){
     if (passUsed == true) {

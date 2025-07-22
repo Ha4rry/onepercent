@@ -52,7 +52,7 @@ async function requestWakeLock(){
     alert("wake lock failed")
     }
 }
-requestWakeLock()
+await requestWakeLock()
 
 function winPage(){
     if (passUsed == true) {

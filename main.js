@@ -36,6 +36,8 @@ let p;
 let selectedPassUsedState;
 let unusedButton;
 let usedButton;
+let timerInterval;
+let timerText;
 
 function winPage(){
     if (passUsed == true) {
@@ -178,6 +180,7 @@ function out() {
     `
 }
 function timesUp() {
+    clearInterval(timerInterval)
     if (passInUse == true) {
         passInUse = false
         hasPass = false
@@ -194,7 +197,7 @@ function timesUp() {
             }
         }
         body.innerHTML = `
-        <h1>You put:</h2>
+        <h1>You put:</h1><div id="time">30s</div>
         <div id="answerTextDiv" class="medium">${userAnswer}</div>
         <br>
         <button id="correctButton">Correct</button>
@@ -210,10 +213,14 @@ function timesUp() {
     }
     
 }
+
+
+
 function questionPage() {
     userAnswer = ""
     passHTML = ``
     setTimeout(timesUp, 30000)
+    
     if (percentages[stage] != 1){
         if (passUsed === false && percentages[stage] <= 50){
             passHTML = `<div id="passDiv"><button id="passButton">Pass</button></div>`
@@ -229,7 +236,7 @@ function questionPage() {
     }
     
     body.innerHTML= 
-    `<span><h1 id="percentageTitleText">${percentages[stage]}%</h1>${passHTML}</span>
+    `<h1 id="percentageTitleText">${percentages[stage]}%</h1>${passHTML}<div id="time">0s</div>
     <textarea id="answerField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type answer here..."></textarea>
     `
     if (percentages[stage] === 1) {
@@ -237,8 +244,12 @@ function questionPage() {
         document.querySelector("#percentageTitleText").style.color = "gold"
     }
 
+    timerInterval = setInterval(function() {
+        timerText = document.querySelector("#time")
+        timerText.innerText = `${Number(timerText.innerText.replace("s",""))+1}s`
+    }, 1000)
     answerField = document.querySelector("#answerField");
-    // answerField.focus()
+    answerField.focus()
 
     answerField.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
@@ -250,9 +261,8 @@ function questionPage() {
         }
       }); 
 
-      if (passUsed === false) {
-        passButton = document.querySelector("#passButton")
-        passButton.addEventListener('click', usePass)
+      if (passUsed === false && percentages[stage] <= 50) {
+        document.querySelector("#passButton").addEventListener('click', usePass)
       }
 
 }

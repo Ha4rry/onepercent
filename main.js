@@ -1,5 +1,9 @@
+const noSpaceBlankChar = "‎"
+const spaceBlankChar = " "
 let body = document.querySelector("body");
 let nextButton = document.querySelector("#nextButton");
+let correctButton;
+let incorrectButton;
 let answerField = null;
 const percentages = [90,
     80,
@@ -18,19 +22,26 @@ const percentages = [90,
     1
 ];
 let stage = 0;
-let userAnswer = ""
-let hasPass = false
-let passUsed = false
-let passInUse = false
-let passGiven = false
-let passHTML = ""
-let passUsedHTML = ""
+let skipPercentagesHTML = "";
+let userAnswer = "";
+let hasPass = false;
+let passUsed = false;
+let passInUse = false;
+let passHTML = "";
+let passUsedHTML = "";
+let skipPercentageText;
+let selectedPercentage;
+let prevSelectedPercentage;
+let p;
+let selectedPassUsedState;
+let unusedButton;
+let usedButton;
 
 function winPage(){
     if (passUsed == true) {
-        passUsedHTML = `<h1>You used a pass.</h1>`
+        passUsedHTML = `<h1>You used your pass.</h1>`
     } else {
-        passUsedHTML = `<h1>A pass was not used.</h1>`
+        passUsedHTML = `<h1>You didn't use a pass.</h1>`
     }
     body.style.backgroundColor = "lightgreen"
     body.innerHTML = `
@@ -41,44 +52,108 @@ function winPage(){
     `
     
 }
-function nextQuestion(){
-    stage = stage + 1
-    questionPage()
-}
 
-function skipToPercentage() {
-    percentageToSkipTo = Number(prompt("What is the percentage of the next question?").replace("%", ""))
-    if (percentages.includes(percentageToSkipTo)){
-        stage = percentages.indexOf((percentageToSkipTo)) - 1
-        timeStartsNowButtonPage()
-
-    } else{
-        alert("FAILED, INVALID PERCENTAGE.")
+function changeGameStatePage() {
+    selectedPercentage = percentages[stage];
+    selectedPassUsedState = passUsed;
+    skipPercentagesHTML = ""
+    for (let i = 0; i < percentages.length; i++){
+        skipPercentagesHTML += `<button class="smallToMedium" id="skipTo${percentages[i]}">${percentages[i]}%</button>
+        ` 
     }
+    body.innerHTML = 
+    `
+    <h2 class="smaller">Upcoming question percentage:</h2>
+    ${skipPercentagesHTML}
+    <h2 class="smaller">Have you used a pass?</h2>
+    <button id="unused" class="smaller darkGreen">Not yet! 😎</button>
+    <button id="used" class="smaller darkRed">I've used it... 😢</button>
+    <h2 class="smaller">Confirm or discard changes:</h2>
+    <button id="confirmChanges" class="medium green">Confirm</button>
+    <button id="discardChanges" class="medium red">Discard</button>
+    `
+    for (let i = 0; i < percentages.length; i++) {
+        document.querySelector(`#skipTo${percentages[i]}`).addEventListener('click', function(e){
+            prevSelectedPercentage = selectedPercentage
+            selectedPercentage = Number(e.target.id.replace("skipTo", "")) // a safe approach?
+            if (prevSelectedPercentage !== selectedPercentage){
+                document.querySelector(`#skipTo${selectedPercentage}`).classList.add("selected")
+                document.querySelector(`#skipTo${prevSelectedPercentage}`).classList.remove("selected")
+            }
+
+        }) // note: I spent a very long time debugging an issue that was caused by using:
+        // ... addEventListener("click", someFunc(arg)) , this caused many issues as I tried to pass an argument like this...
+    }
+    document.querySelector(`#skipTo${selectedPercentage}`).classList.add("selected")
+
+    unusedButton = document.querySelector("#unused")
+    usedButton = document.querySelector("#used")
+
+    unusedButton.addEventListener('click', function(){
+        selectedPassUsedState = false;
+        unusedButton.classList.add("selected")
+        unusedButton.style.color = "green";
+        usedButton.classList.remove("selected")
+        usedButton.style.color = "white"
+    })
+    usedButton.addEventListener('click', function(){
+        selectedPassUsedState = true;
+        usedButton.classList.add("selected")
+        usedButton.style.color = "red";
+        unusedButton.classList.remove("selected")
+        unusedButton.style.color = "white"
+    })
+
+    if (selectedPassUsedState === true) {
+        usedButton.classList.add("selected")
+        usedButton.style.color = "red";
+    } else{
+        unusedButton.classList.add("selected")
+        unusedButton.style.color = "green";
+    }
+
+    document.querySelector("#confirmChanges").addEventListener('click', function(){
+        stage = percentages.indexOf(selectedPercentage)
+        passUsed = selectedPassUsedState
+        timeStartsNowButtonPage()
+    })
+    document.querySelector("#discardChanges").addEventListener('click', timeStartsNowButtonPage)
+
+    
 }
 
+function nextQuestionWaitingPage() {
+    stage = stage + 1
+    timeStartsNowButtonPage()
+}
 function timeStartsNowButtonPage() {
     
     body.innerHTML = `
-    <h1 class="medium" id="nextQuestionText">Next Question: ${percentages[stage+1]}%</h1>
+    <h1 class="medium" id="nextQuestionText">Upcoming Question: ${percentages[stage]}%</h1>
     <div><button id="nextButton" class="big">'Your time starts... NOW'</button></div>
     <br>
     <br>
-    <div><button id="skipToAPercentButton">Change next question percentage</button></div>
+    <div><button id="changeGameStateButton">Change game state (Upcoming Question, Pass)</button></div>
     `
-    if (percentages[stage+1] === 1) {
+    
+    if (percentages[stage] === 1) {
         // document.querySelector("#nextQuestionText").style.color = "black"
         document.querySelector("#nextQuestionText").classList.add('goldglow');
+        document.body.style.backgroundColor = "black";
+    }
+    else {
+        document.body.style.backgroundColor = "blue"
     }
     nextButton = document.querySelector("#nextButton");
-    skipToAPercentButton = document.querySelector("#skipToAPercentButton");
+    changeGameStateButton = document.querySelector("#changeGameStateButton");
 
-    nextButton.addEventListener('click', nextQuestion);
-    skipToAPercentButton.addEventListener('click', skipToPercentage)
+    nextButton.addEventListener('click', questionPage);
+    changeGameStateButton.addEventListener('click', changeGameStatePage)
+    
 }
 function correctPage() {
     if (percentages[stage] != 1) {
-        timeStartsNowButtonPage()
+        nextQuestionWaitingPage()
     } else {
         winPage()
     }
@@ -107,7 +182,7 @@ function timesUp() {
     if (passInUse == true) {
         passInUse = false
         hasPass = false
-        timeStartsNowButtonPage()
+        nextQuestionWaitingPage()
         
     }
     else {
@@ -116,7 +191,7 @@ function timesUp() {
             if (ans != ""){
                 userAnswer = ans
             } else {
-                userAnswer = "‎ ‎ ‎ ‎ ‎ "
+                userAnswer = `${noSpaceBlankChar} ${noSpaceBlankChar} ${noSpaceBlankChar} ${noSpaceBlankChar} ${noSpaceBlankChar} `
             }
         }
         body.innerHTML = `
@@ -126,27 +201,25 @@ function timesUp() {
         <button id="correctButton">Correct</button>
         <br>
         <button id="incorrectButton">Incorrect</button>`
-
-        let correctButton = document.querySelector("#correctButton")
-        let incorrectButton = document.querySelector("#incorrectButton")
+       
+        correctButton = document.querySelector("#correctButton")
+        incorrectButton = document.querySelector("#incorrectButton")
         incorrectButton.addEventListener('click', out)
         
         correctButton.addEventListener('click', correctPage)
+        
     }
     
 }
 function questionPage() {
     userAnswer = ""
+    passHTML = ``
     setTimeout(timesUp, 30000)
     if (percentages[stage] != 1){
-        if (percentages[stage] <= 50 && passUsed == false){
-            hasPass = true
-            passGiven = true
-        }
-        if (hasPass == true){
+        if (passUsed === false && percentages[stage] <= 50){
             passHTML = `<div id="passDiv"><button id="passButton">Pass</button></div>`
         } 
-        else {
+        else if (percentages[stage] <= 50 && passUsed == true) {
             // passHTML = `<div id="passDiv">No pass available.</div>`
             if (passUsed == true) {
                 passHTML = `<div id="passDiv">Pass used.</div>`
@@ -178,7 +251,7 @@ function questionPage() {
         }
       }); 
 
-      if (hasPass == true) {
+      if (passUsed === false) {
         passButton = document.querySelector("#passButton")
         passButton.addEventListener('click', usePass)
       }
@@ -186,4 +259,4 @@ function questionPage() {
 }
 
 nextButton.addEventListener('click', questionPage)
-skipToAPercentButton.addEventListener('click', skipToPercentage)
+changeGameStateButton.addEventListener('click', changeGameStatePage)

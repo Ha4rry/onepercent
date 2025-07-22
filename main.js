@@ -58,7 +58,7 @@ function changeGameStatePage() {
     selectedPassUsedState = passUsed;
     skipPercentagesHTML = ""
     for (let i = 0; i < percentages.length; i++){
-        skipPercentagesHTML += `<button class="smallToMedium" id="skipTo${percentages[i]}">${percentages[i]}%</button>
+        skipPercentagesHTML += `<button class="smallToMedium trim" id="skipTo${percentages[i]}">${percentages[i]}%</button>
         ` 
     }
     body.innerHTML = 
@@ -66,11 +66,11 @@ function changeGameStatePage() {
     <h2 class="smaller">Upcoming question percentage:</h2>
     ${skipPercentagesHTML}
     <h2 class="smaller">Have you used a pass?</h2>
-    <button id="unused" class="smaller darkGreen">Not yet! 😎</button>
-    <button id="used" class="smaller darkRed">I've used it... 😢</button>
+    <button id="unused" class="smallest darkGreen">Not yet! 😎</button>
+    <button id="used" class="smallest darkRed">I've used it... 😢</button>
     <h2 class="smaller">Confirm or discard changes:</h2>
-    <button id="confirmChanges" class="medium green">Confirm</button>
-    <button id="discardChanges" class="medium red">Discard</button>
+    <button id="confirmChanges" class="smallToMedium green">Confirm</button>
+    <button id="discardChanges" class="smallToMedium red">Discard</button>
     `
     for (let i = 0; i < percentages.length; i++) {
         document.querySelector(`#skipTo${percentages[i]}`).addEventListener('click', function(e){

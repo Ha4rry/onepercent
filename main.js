@@ -132,7 +132,6 @@ function timeStartsNowButtonPage() {
     <h1 class="medium" id="nextQuestionText">Upcoming Question: ${percentages[stage]}%</h1>
     <div><button id="nextButton" class="big">'Your time starts... NOW'</button></div>
     <br>
-    <br>
     <div><button id="changeGameStateButton">Change game state</button></div>
     `
     

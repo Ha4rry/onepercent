@@ -37,7 +37,9 @@ let selectedPassUsedState;
 let unusedButton;
 let usedButton;
 let timerInterval;
+let timeValue;
 let timerText;
+
 
 function winPage(){
     if (passUsed == true) {
@@ -163,7 +165,9 @@ function correctPage() {
 function usePass() {
     passInUse = true
     passUsed = true
-    body.innerHTML = `<h1 class="big">Used pass, waiting...</h1>`
+    body.innerHTML = `
+    <h1 class="big">Used pass, waiting...</h1>
+    <div id="time">${timeValue}s</div>`
 }
 function out() {
     if (passUsed == true) {
@@ -197,8 +201,7 @@ function timesUp() {
             }
         }
         body.innerHTML = `
-        <h1 style="display: inline-block;">You put:</h1><span id="time">30s</span>
-        <br>
+        <h1>You put:</h1>
         <div id="answerTextDiv" class="medium">${userAnswer}</div>
         <br>
         <button id="correctButton">Correct</button>
@@ -219,7 +222,7 @@ function questionPage() {
     userAnswer = ""
     passHTML = ``
     setTimeout(timesUp, 30000)
-    
+    timeValue = 30
     if (percentages[stage] != 1){
         if (passUsed === false && percentages[stage] <= 50){
             passHTML = `<div id="passDiv"><button id="passButton">Pass</button></div>`
@@ -235,7 +238,7 @@ function questionPage() {
     }
     
     body.innerHTML= 
-    `<h1 id="percentageTitleText">${percentages[stage]}%</h1>${passHTML}<div id="time">0s</div>
+    `<h1 id="percentageTitleText">${percentages[stage]}%</h1>${passHTML}
     <textarea id="answerField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type answer here..."></textarea>
     `
     if (percentages[stage] === 1) {
@@ -244,8 +247,9 @@ function questionPage() {
     }
 
     timerInterval = setInterval(function() {
+        timeValue -= 1
         timerText = document.querySelector("#time")
-        timerText.innerText = `${Number(timerText.innerText.replace("s",""))+1}s`
+        timerText.innerText = `${timeValue}s`
     }, 1000)
     answerField = document.querySelector("#answerField");
     answerField.focus()
@@ -255,7 +259,9 @@ function questionPage() {
           event.preventDefault();
           userAnswer = answerField.value
           if (userAnswer != "") {
-              body.innerHTML = `<h1 class="big">Answer submitted</h1>`
+              body.innerHTML = `
+              <h1 class="big">Answer submitted</h1>
+              <div id="time">${timeValue}s</div>`
           }
         }
       }); 

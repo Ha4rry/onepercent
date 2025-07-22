@@ -39,20 +39,32 @@ let usedButton;
 let timerInterval;
 let timeValue;
 let timerText;
+// The wake lock sentinel.
 let wakeLock = null;
 
-// create an async function to request a wake lock
-async function requestWakeLock(){
-    // THIS PROBABLY ONLY WORKS ON HTTPS
-    try {
-    wakeLock = await navigator.wakeLock.request("screen");
-    alert("wake lock active")
-    } catch (err) {
-    // The Wake Lock request has failed - usually system related, such as battery.
-    alert("wake lock failed")
-    }
-}
-await requestWakeLock()
+// SCREEN WAKE LOCK PROBABLY ONLY WORKS ON HTTPS
+// Function that attempts to request a screen wake lock. 
+const requestWakeLock = async () => {
+  try {
+    wakeLock = await navigator.wakeLock.request();
+    wakeLock.addEventListener('release', () => {
+      console.log('Screen Wake Lock released:', wakeLock.released);
+    });
+    console.log('Screen Wake Lock released:', wakeLock.released);
+  } catch (err) {
+    console.error(`${err.name}, ${err.message}`);
+  }
+};
+
+// Request a screen wake lock…
+requestWakeLock();
+
+const handleVisibilityChange = async () => {
+  if (wakeLock !== null && document.visibilityState === 'visible') {
+    await requestWakeLock();
+  }
+};
+document.addEventListener('visibilitychange', handleVisibilityChange);
 
 function winPage(){
     if (passUsed == true) {

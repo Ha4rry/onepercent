@@ -47,12 +47,8 @@ let wakeLock = null;
 const requestWakeLock = async () => {
   try {
     wakeLock = await navigator.wakeLock.request();
-    wakeLock.addEventListener('release', () => {
-        document.body.innerHTML += `Screen Wake Lock released: ${wakeLock.released}<br>`;
-    });
-    document.body.innerHTML += `Screen Wake Lock released: ${wakeLock.released}<br>`;
   } catch (err) {
-    document.body.innerHTML += `${err.name}, ${err.message}<br>`;
+    console.log(`${err.name}, ${err.message}<br>`);
   }
 };
 

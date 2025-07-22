@@ -39,7 +39,7 @@ let usedButton;
 let timerInterval;
 let timeValue;
 let timerText;
-let wakeLock;
+let wakeLock = null;
 
 // create an async function to request a wake lock
 async function requestWakeLock(){
@@ -52,6 +52,7 @@ async function requestWakeLock(){
     alert("wake lock failed")
     }
 }
+requestWakeLock()
 
 function winPage(){
     if (passUsed == true) {

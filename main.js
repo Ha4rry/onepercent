@@ -235,7 +235,7 @@ function timesUp() {
         incorrectButton.addEventListener('click', out)
         
         correctButton.addEventListener('click', correctPage)
-        
+        navigator.vibrate(750);
     }
     
 }

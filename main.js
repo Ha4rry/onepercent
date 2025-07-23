@@ -260,7 +260,7 @@ function questionPage() {
     }
     
     body.innerHTML= 
-    `<h1 id="percentageTitleText">${percentages[stage]}%</h1>${passHTML}
+    `<div><h1 id="percentageTitleText">${percentages[stage]}%</h1>${passHTML}</div>
     <textarea id="answerField" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type answer here..."></textarea>
     `
     if (percentages[stage] === 1) {
